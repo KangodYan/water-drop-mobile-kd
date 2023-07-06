@@ -1,28 +1,41 @@
-import { useMutation, useQuery } from '@apollo/client';
-import { FIND, CREATE } from './graphql/demo';
+import {
+  Form, Input, Button, Calendar, ImageUploader,
+} from 'antd-mobile';
 
 import './App.css';
+import { useUploadOSS } from './hooks/useUploadOSS';
 
-// 「调用Graphql接口4」使用useQuery和useMutation获取数据
+// 「调用Graphql服务端接口4」使用useQuery和useMutation获取数据
 const App = () => {
-  const { loading, data } = useQuery(FIND, {
-    variables: {
-      id: '61d55314-21ee-4bca-b117-bc5f8f315561',
-    },
-  });
-
-  useMutation(CREATE);
+  const uploadHandler = useUploadOSS();
 
   return (
     <div>
-      <p>
-        data:
-        {JSON.stringify(data)}
-      </p>
-      <p>
-        loading:
-        {`${loading}`}
-      </p>
+      <div>
+        <Form
+          layout="horizontal"
+          footer={(
+            <Button block type="submit" color="primary" size="large">
+              提交
+            </Button>
+          )}
+        >
+          <Form.Item name="name" label="姓名">
+            <Input
+              placeholder="请输入姓名"
+              rules={[{ required: true, message: '姓名不能为空' }]}
+            >
+              姓名
+            </Input>
+          </Form.Item>
+          <Form.Item name="avatar" label="头像">
+            <ImageUploader
+              upload={uploadHandler}
+            />
+          </Form.Item>
+        </Form>
+        <Calendar />
+      </div>
     </div>
   );
 };
