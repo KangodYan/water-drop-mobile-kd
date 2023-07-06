@@ -1,38 +1,30 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '~/vite.svg';
+import { useMutation, useQuery } from '@apollo/client';
+import { FIND, CREATE } from './graphql/demo';
+
 import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0);
+// 「调用Graphql接口4」使用useQuery和useMutation获取数据
+const App = () => {
+  const { loading, data } = useQuery(FIND, {
+    variables: {
+      id: '61d55314-21ee-4bca-b117-bc5f8f315561',
+    },
+  });
+
+  useMutation(CREATE);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button type="button" onClick={() => setCount((count1) => count1 + 1)}>
-          count is
-          {count}
-        </button>
-        <p>
-          Edit
-          <code>src/App.tsx</code>
-          and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+    <div>
+      <p>
+        data:
+        {JSON.stringify(data)}
       </p>
-    </>
+      <p>
+        loading:
+        {`${loading}`}
+      </p>
+    </div>
   );
-}
+};
 
 export default App;
