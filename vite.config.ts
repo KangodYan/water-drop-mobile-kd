@@ -9,7 +9,6 @@ export default defineConfig({
   server: {
     host: '0.0.0.0', // 打开通过IP地址访问的开关
     port: 3333,
-    open: true, // 自动打开浏览器
     cors: true, // 打开跨域
   },
   plugins: [react(), eslint()],
