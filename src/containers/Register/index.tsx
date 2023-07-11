@@ -56,17 +56,17 @@ export default () => {
         )}
       >
         <Form.Item
-          label="用户名"
+          label="账号"
           name="account"
           rules={[{
             required: true,
-            message: '用户名不能为空',
+            message: '账号不能为空',
           }, {
             pattern: /^(?![0-9]+$)(?![a-z]+$)[a-z0-9]{6,10}$/,
             message: '有且只能包含小写字母和数字，长度大于 6，小于 10',
           }]}
         >
-          <Input placeholder="请输入用户名" clearable />
+          <Input placeholder="请输入账号" clearable />
         </Form.Item>
         <Form.Item
           label="密码"
@@ -102,21 +102,18 @@ export default () => {
         <Form.Item
           label="确认密码"
           name="passwordConfirm"
-          rules={[{
-            pattern: /^[a-z0-9]{6,16}$/,
-            message: '只能由英文和数字组成，且长度在6~16之间',
-          },
-          {
-            validator: (_, value) => {
+          rules={[
+            {
+              validator: (_, value) => {
               // 通过实例化Form之后的对象获取到上一个Form.Item输入的密码
-              const password = form.getFieldValue('password');
-              if (password === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject();
-            },
-            message: '两次输入的密码需要一致',
-          }]}
+                const password = form.getFieldValue('password');
+                if (password === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject();
+              },
+              message: '两次输入的密码需要一致',
+            }]}
           extra={(
             <div>
               {!visible ? (

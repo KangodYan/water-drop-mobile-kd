@@ -51,17 +51,17 @@ export default () => {
         )}
       >
         <Form.Item
-          label="用户名"
+          label="账号"
           name="account"
           rules={[{
             required: true,
-            message: '用户名不能为空',
+            message: '账号不能为空',
           }, {
             pattern: /^(?![0-9]+$)(?![a-z]+$)[a-z0-9]{6,10}$/,
             message: '有且只能包含小写字母和数字，长度大于 6，小于 10',
           }]}
         >
-          <Input placeholder="请输入用户名" clearable />
+          <Input placeholder="请输入账号" clearable />
         </Form.Item>
         <Form.Item
           label="密码"
