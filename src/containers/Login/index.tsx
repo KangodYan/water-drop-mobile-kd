@@ -1,12 +1,14 @@
 import { STUDENT_LOGIN } from '@/graphql/student';
 import { useMutation } from '@apollo/client';
 import {
-  Button, Form, Input, Space, Toast,
+  Button, Form, Input, Space,
 } from 'antd-mobile';
 import { Link, useNavigate } from 'react-router-dom';
 import { EyeInvisibleOutline, EyeOutline } from 'antd-mobile-icons';
 import { useState } from 'react';
 
+import { showSuccess, showFail } from '@/utils';
+import { AUTH_TOKEN } from '@/utils/constants';
 import style from './index.module.less';
 
 interface IValue {
@@ -25,14 +27,12 @@ export default () => {
   const loginHandler = async (values: IValue) => {
     const res = await login({ variables: values });
     if (res.data.studentLogin.code === 200) {
-      Toast.show({
-        content: res.data.studentLogin.message,
-      });
-      nav('/');
+      // 存储学生token
+      localStorage.setItem(AUTH_TOKEN, res.data.studentLogin.data);
+      showSuccess(res.data.studentLogin.message);
+      nav('/my');
     } else {
-      Toast.show({
-        content: res.data.studentLogin.message,
-      });
+      showFail(res.data.studentLogin);
     }
   };
 

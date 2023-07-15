@@ -5,6 +5,7 @@ export const STUDENT_LOGIN = gql`
     studentLogin(account: $account, password: $password) {
       code
       message
+      data
     }
   }
 `;
